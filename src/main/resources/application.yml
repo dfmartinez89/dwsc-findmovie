@@ -17,7 +17,7 @@ management:
 info:
  application:
   name: ${spring.application.name}
-  description: This application validates the existence of a movie using omdb
+  description: This application search a movie given parameters search criteria
 server:
  port: ${PORT:${SERVER_PORT:0}}
 
