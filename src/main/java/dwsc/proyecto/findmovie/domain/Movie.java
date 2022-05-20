@@ -8,7 +8,7 @@ public class Movie {
 
 	private String title;
 	private int year;
-	private int scoreAverage;
+	private double scoreAverage;
 	private String description;
 	private String url;
 
@@ -44,11 +44,11 @@ public class Movie {
 		this.year = year;
 	}
 
-	public int getAverageScore() {
+	public double getAverageScore() {
 		return scoreAverage;
 	}
 
-	public void setAverageScore(int averageScore) {
+	public void setAverageScore(double averageScore) {
 		this.scoreAverage = averageScore;
 	}
 
