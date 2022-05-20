@@ -17,9 +17,14 @@ management:
 info:
  application:
   name: ${spring.application.name}
-  description: This application search a movie given parameters search criteria
+  description: This application search a movie given its title
 server:
  port: ${PORT:${SERVER_PORT:0}}
+ error:
+  include-message: always
+  include-binding-errors: always
+  include-stacktrace: always
+  include-exception: true
 
 spring:
  application:
