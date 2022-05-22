@@ -7,7 +7,7 @@ public class Movie {
 	private String id;
 
 	private String title;
-	private int year;
+	private Integer year;
 	private double scoreAverage;
 	private String description;
 	private String url;
