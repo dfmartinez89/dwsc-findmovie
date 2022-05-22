@@ -30,7 +30,7 @@ public class MovieServiceImpl implements MovieService {
 
 	@Override
 	public Iterable<Movie> findMovieByScore(double score) {
-		return movieRepo.findByscoreAverageGreaterThan(score);
+		return movieRepo.findByscoreAverageGreaterThanEqual(score);
 	}
 
 }

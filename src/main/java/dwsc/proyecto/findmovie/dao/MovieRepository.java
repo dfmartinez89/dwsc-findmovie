@@ -12,5 +12,5 @@ public interface MovieRepository extends MongoRepository<Movie, String> {
 
 	Iterable<Movie> findByYear(@Param("title") Integer year);
 
-	Iterable<Movie> findByscoreAverageGreaterThan(@Param("score") double score);
+	Iterable<Movie> findByscoreAverageGreaterThanEqual(@Param("scoreAverage") double scoreAverage);
 }
