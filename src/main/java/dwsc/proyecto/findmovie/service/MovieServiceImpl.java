@@ -1,6 +1,7 @@
 package dwsc.proyecto.findmovie.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,11 @@ public class MovieServiceImpl implements MovieService {
 	@Override
 	public Iterable<Movie> findMovieByScore(double score) {
 		return movieRepo.findByscoreAverageGreaterThanEqual(score);
+	}
+
+	@Override
+	public Optional<Movie> findMovieById(String id) {
+		return movieRepo.findById(id);
 	}
 
 }

@@ -1,12 +1,14 @@
 package dwsc.proyecto.findmovie.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.commons.collections4.IterableUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,6 +43,20 @@ public class FindMovieController {
 			throw new MovieNotFoundException(HttpStatus.NOT_FOUND, "There are no movies in our database");
 		}
 		return ResponseEntity.ok(movies);
+	}
+	
+	@Operation(summary = "Get movie by id", description = "Operation to search a movie that have a given id")
+	@ApiResponses({ @ApiResponse(responseCode = "200", description = "movies listed succesfully"),
+			@ApiResponse(responseCode = "404", description = "movie not found", content = @Content(schema = @Schema(implementation = CustomResponse.class))) })
+	@RequestMapping(method = RequestMethod.GET, path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Optional<Movie>> getMovieById(
+			@Parameter(description = "Movie id") @PathVariable String id) throws MovieNotFoundException {
+		Optional <Movie> movie = movieService.findMovieById(id);
+		if (!movie.isPresent()) {
+			throw new MovieNotFoundException(HttpStatus.NOT_FOUND,
+					"There is no movie with id: " + id + " in our database");
+		}
+		return ResponseEntity.ok(movie);
 	}
 
 	@Operation(summary = "Get all movies by title", description = "Operation to search all movies that have a given title")
