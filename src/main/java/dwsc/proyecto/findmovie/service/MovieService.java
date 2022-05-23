@@ -13,9 +13,9 @@ public interface MovieService {
 
 	public Optional<Movie> findMovieById(String id);
 
-	public Iterable<Movie> findMovieByTitle(String title);
+	public List<Movie> findMovieByTitle(String title);
 
-	public Iterable<Movie> findMovieByYear(Integer year);
+	public List<Movie> findMovieByYear(Integer year);
 
-	public Iterable<Movie> findMovieByScore(double score);
+	public List<Movie> findMovieByScore(double score);
 }

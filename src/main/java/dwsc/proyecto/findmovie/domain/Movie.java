@@ -10,17 +10,9 @@ public class Movie {
 
 	private String title;
 	private Integer year;
-	private double scoreAverage;
+	private double score;
 	private String description;
 	private String url;
-
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
 
 	public String getId() {
 		return id;
@@ -38,20 +30,20 @@ public class Movie {
 		this.title = title;
 	}
 
-	public int getYear() {
+	public Integer getYear() {
 		return year;
 	}
 
-	public void setYear(int year) {
+	public void setYear(Integer year) {
 		this.year = year;
 	}
 
-	public double getAverageScore() {
-		return scoreAverage;
+	public double getScore() {
+		return score;
 	}
 
-	public void setAverageScore(double averageScore) {
-		this.scoreAverage = averageScore;
+	public void setScore(double score) {
+		this.score = score;
 	}
 
 	public String getDescription() {
@@ -60,6 +52,14 @@ public class Movie {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 }

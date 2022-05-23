@@ -20,18 +20,18 @@ public class MovieServiceImpl implements MovieService {
 	}
 
 	@Override
-	public Iterable<Movie> findMovieByTitle(String title) {
+	public List<Movie> findMovieByTitle(String title) {
 		return movieRepo.findByTitle(title);
 	}
 
 	@Override
-	public Iterable<Movie> findMovieByYear(Integer year) {
+	public List<Movie> findMovieByYear(Integer year) {
 		return movieRepo.findByYear(year);
 	}
 
 	@Override
-	public Iterable<Movie> findMovieByScore(double score) {
-		return movieRepo.findByscoreAverageGreaterThanEqual(score);
+	public List<Movie> findMovieByScore(double score) {
+		return movieRepo.findByScoreGreaterThanEqual(score);
 	}
 
 	@Override

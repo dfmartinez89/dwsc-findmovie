@@ -33,7 +33,7 @@ public class FindMovieController {
 	@Autowired
 	MovieService movieService;
 
-	@Operation(summary = "Get all movies", description = "Operation to all movies in DB")
+	@Operation(summary = "Get all movies", description = "Operation to get all movies in DB")
 	@ApiResponses({ @ApiResponse(responseCode = "200", description = "movies listed succesfully"),
 			@ApiResponse(responseCode = "404", description = "movie not found", content = @Content(schema = @Schema(implementation = CustomResponse.class))) })
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -49,13 +49,15 @@ public class FindMovieController {
 	@ApiResponses({ @ApiResponse(responseCode = "200", description = "movies listed succesfully"),
 			@ApiResponse(responseCode = "404", description = "movie not found", content = @Content(schema = @Schema(implementation = CustomResponse.class))) })
 	@RequestMapping(method = RequestMethod.GET, path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Optional<Movie>> getMovieById(
+	public ResponseEntity<Movie> getMovieById(
 			@Parameter(description = "Movie id") @PathVariable String id) throws MovieNotFoundException {
-		Optional <Movie> movie = movieService.findMovieById(id);
-		if (!movie.isPresent()) {
+		Optional <Movie> movieOptional = movieService.findMovieById(id);
+		if (!movieOptional.isPresent()) {
 			throw new MovieNotFoundException(HttpStatus.NOT_FOUND,
 					"There is no movie with id: " + id + " in our database");
 		}
+		Movie movie = movieOptional.get();
+		
 		return ResponseEntity.ok(movie);
 	}
 
@@ -92,7 +94,7 @@ public class FindMovieController {
 			@ApiResponse(responseCode = "404", description = "movie not found", content = @Content(schema = @Schema(implementation = CustomResponse.class))) })
 	@RequestMapping(method = RequestMethod.GET, path = "/score", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Iterable<Movie>> getMoviesByScore(
-			@Parameter(description = "Movie score") @RequestParam Double score) throws MovieNotFoundException {
+			@Parameter(description = "Movie score") @RequestParam double score) throws MovieNotFoundException {
 		Iterable<Movie> movies = movieService.findMovieByScore(score);
 		if (IterableUtils.isEmpty(movies)) {
 			throw new MovieNotFoundException(HttpStatus.NOT_FOUND,
