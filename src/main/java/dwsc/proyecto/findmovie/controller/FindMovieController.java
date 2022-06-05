@@ -44,20 +44,21 @@ public class FindMovieController {
 		}
 		return ResponseEntity.ok(movies);
 	}
-	
+
 	@Operation(summary = "Get movie by id", description = "Operation to search a movie that have a given id")
 	@ApiResponses({ @ApiResponse(responseCode = "200", description = "movies listed succesfully"),
 			@ApiResponse(responseCode = "404", description = "movie not found", content = @Content(schema = @Schema(implementation = CustomResponse.class))) })
 	@RequestMapping(method = RequestMethod.GET, path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Movie> getMovieById(
-			@Parameter(description = "Movie id") @PathVariable String id) throws MovieNotFoundException {
-		Optional <Movie> movieOptional = movieService.findMovieById(id);
+			@Parameter(description = "Movie id") @PathVariable(required = true) String id)
+			throws MovieNotFoundException {
+		Optional<Movie> movieOptional = movieService.findMovieById(id);
 		if (!movieOptional.isPresent()) {
 			throw new MovieNotFoundException(HttpStatus.NOT_FOUND,
 					"There is no movie with id: " + id + " in our database");
 		}
 		Movie movie = movieOptional.get();
-		
+
 		return ResponseEntity.ok(movie);
 	}
 
@@ -66,7 +67,8 @@ public class FindMovieController {
 			@ApiResponse(responseCode = "404", description = "movie not found", content = @Content(schema = @Schema(implementation = CustomResponse.class))) })
 	@RequestMapping(method = RequestMethod.GET, path = "/title", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Iterable<Movie>> getMoviesByTitle(
-			@Parameter(description = "Movie title") @RequestParam String title) throws MovieNotFoundException {
+			@Parameter(description = "Movie title") @RequestParam(required = true) String title)
+			throws MovieNotFoundException {
 		Iterable<Movie> movies = movieService.findMovieByTitle(title);
 		if (IterableUtils.isEmpty(movies)) {
 			throw new MovieNotFoundException(HttpStatus.NOT_FOUND,
@@ -80,7 +82,8 @@ public class FindMovieController {
 			@ApiResponse(responseCode = "404", description = "movie not found", content = @Content(schema = @Schema(implementation = CustomResponse.class))) })
 	@RequestMapping(method = RequestMethod.GET, path = "/year", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Iterable<Movie>> getMoviesByYear(
-			@Parameter(description = "Movie year") @RequestParam Integer year) throws MovieNotFoundException {
+			@Parameter(description = "Movie year") @RequestParam(required = true) Integer year)
+			throws MovieNotFoundException {
 		Iterable<Movie> movies = movieService.findMovieByYear(year);
 		if (IterableUtils.isEmpty(movies)) {
 			throw new MovieNotFoundException(HttpStatus.NOT_FOUND,
@@ -94,7 +97,8 @@ public class FindMovieController {
 			@ApiResponse(responseCode = "404", description = "movie not found", content = @Content(schema = @Schema(implementation = CustomResponse.class))) })
 	@RequestMapping(method = RequestMethod.GET, path = "/score", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Iterable<Movie>> getMoviesByScore(
-			@Parameter(description = "Movie score") @RequestParam double score) throws MovieNotFoundException {
+			@Parameter(description = "Movie score") @RequestParam(required = true) double score)
+			throws MovieNotFoundException {
 		Iterable<Movie> movies = movieService.findMovieByScore(score);
 		if (IterableUtils.isEmpty(movies)) {
 			throw new MovieNotFoundException(HttpStatus.NOT_FOUND,
